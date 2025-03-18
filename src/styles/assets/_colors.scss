@@ -1,0 +1,35 @@
+:root {
+  --black: #000000;
+  --blue: #14213D;
+  --orange-200: #ffc362;
+  --orange-400: #FCA311;
+  --orange-800: #b6760e;
+  --gray: #E5E5E5;
+  --white: #FFFFFF;
+}
+.text-black {
+  color: var(--black);
+}
+
+.text-blue {
+  color: var(--blue);
+}
+
+.text-orange-200 {
+  color: var(--orange-200);
+}
+
+.text-orange-400 {
+  color: var(--orange-400);
+}
+.text-orange-800 {
+  color: var(--orange-800);
+}
+
+.text-gray {
+  color: var(--light-gray);
+}
+
+.text-white {
+  color: var(--white);
+}
