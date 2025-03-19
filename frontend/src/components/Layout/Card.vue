@@ -19,7 +19,7 @@ const props = defineProps({
   box-shadow: var(--shadow);
   border-radius: var(--radius);
   padding: 1rem;
-  width: 85%;
+  width: 90%;
   margin: 0 auto;
 
   &.full {

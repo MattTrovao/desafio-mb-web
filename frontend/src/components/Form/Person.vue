@@ -54,7 +54,7 @@ const handleSetPerson = () => {
   <label for="email">Endereço de Email</label>
   <input type="email" name="email" id="" v-model="email" />
 
-  <div class="flex gap-2">
+  <div class="flex gap-1">
     <Checkbox
       text="Pessoa Física"
       v-model="pf"
