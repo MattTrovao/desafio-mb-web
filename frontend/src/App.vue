@@ -14,22 +14,44 @@ const updateUser = (value) => {
     type.value = value.type;
   }
 
-  console.log("user", user.value);
-
   step.value = step.value + 1;
 };
 
-const createPerson = (value) => {
-  localStorage.setItem("user", value);
+const createPerson = async (value) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/registration`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(value),
+      }
+    );
 
-  Swal.fire({
-    title: "Usuário cadastrado",
-    html: `O usuário <b>${value.email}</b> foi cadastrado com sucesso!`,
-    icon: "success",
-    confirmButtonText: "Fechar",
-  }).then((result) => {
-    step.value = 1
-  });
+    if (!response.ok) {
+      throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    Swal.fire({
+      title: "Usuário cadastrado",
+      html: data.message,
+      icon: "success",
+      confirmButtonText: "Fechar",
+    }).then((result) => {
+      step.value = 1;
+    });
+
+    user.value = {};
+  } catch (error) {
+    Swal.fire({
+      title: "Um erro inesperado ocorreu",
+      html: "Por favor tente novamente mais tarde ou fale com nossa equipe de suporte pelo número <br> (41)99999-9999",
+      icon: "error",
+      confirmButtonText: "Fechar",
+    });
+  }
 };
 
 const backStep = () => {
@@ -42,14 +64,20 @@ const backStep = () => {
     <Card size="small">
       <FormStep :total="4" :current="step" />
 
-      <Person v-if="step == 1" @setPerson="updateUser" />
+      <Person v-if="step == 1" @setPerson="updateUser" :data="user" />
       <About
         v-if="step == 2"
         :type="type"
         @back="backStep"
         @setPerson="updateUser"
+        :data="user"
       />
-      <Password v-if="step == 3" @back="backStep" @setPerson="updateUser" />
+      <Password
+        v-if="step == 3"
+        @back="backStep"
+        @setPerson="updateUser"
+        :data="user"
+      />
       <Revision
         v-if="step == 4"
         :type="type"

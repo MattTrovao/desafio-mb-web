@@ -1,22 +1,29 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watchEffect } from "vue";
 const emit = defineEmits(["setPerson"]);
 
-const email = ref("");
+const props = defineProps({
+  data: {
+    type: Object,
+  },
+});
 
-const pf = ref(false);
-const pj = ref(false);
+const email = ref(props.data.email ? props.data.email : '');
+
+const pf = ref(props.data.type == 0 ? true : false);
+const pj = ref(props.data.type == 1 ? true : false);
+
+const emailValid = computed(
+  () => email.value.length === 0 || email.value.includes("@")
+);
 
 const disabled = computed(() => {
-  if(
-    email.value.length > 0 &&
-    (pf.value || pj.value)
-  ) {
-    return false
+  if (email.value.length > 0 && (pf.value || pj.value)) {
+    return false;
   } else {
-    return true
+    return true;
   }
-})
+});
 
 const tooglePerson = (type, value) => {
   if (type == "pf") {
@@ -41,11 +48,10 @@ const tooglePerson = (type, value) => {
 const handleSetPerson = () => {
   let person = {
     email: email.value,
-    type: pf.value ? 0 : 1
-  }
+    type: pf.value ? 0 : 1,
+  };
   emit("setPerson", person);
-  
-}
+};
 </script>
 
 <template>
@@ -53,6 +59,7 @@ const handleSetPerson = () => {
 
   <label for="email">Endereço de Email</label>
   <input type="email" name="email" id="" v-model="email" />
+  <p class="caption text-red" v-if="!emailValid">Digite um email valido</p>
 
   <div class="flex gap-1">
     <Checkbox
@@ -69,7 +76,12 @@ const handleSetPerson = () => {
     />
 
     <div class="footer mt-2 w-100">
-      <Button text="Continuar" class="w-100" :disabled="disabled" @click="handleSetPerson" />
+      <Button
+        text="Continuar"
+        class="w-100"
+        :disabled="disabled"
+        @click="handleSetPerson"
+      />
     </div>
   </div>
 </template>

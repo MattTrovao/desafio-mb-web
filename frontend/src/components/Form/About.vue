@@ -8,20 +8,30 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  data: {
+    type: Object,
+  },
 });
 
-const name = ref("");
-const document = ref("");
-const date = ref("");
-const phone = ref("");
+const name = ref(props.data.name ? props.data.name : "");
+const document = ref(props.data.document ? props.data.document : "");
+const date = ref(props.data.date ? props.data.date : "");
+const phone = ref(props.data.phone ? props.data.phone : "");
 
+const today = new Date();
+const maxDate = today.toISOString().split("T")[0];
+const minDate = new Date(
+  today.getFullYear() - 100,
+  today.getMonth(),
+  today.getDate()
+)
+  .toISOString()
+  .split("T")[0];
 const disabled = computed(() => {
   if (
     name.value.length > 0 &&
-    (
-      (props.type === 0 && document.value.length === 14) ||
-      (props.type === 1 && document.value.length === 18)
-    ) &&
+    ((props.type === 0 && document.value.length === 14) ||
+      (props.type === 1 && document.value.length === 18)) &&
     date.value.length > 0 &&
     phone.value.length > 0
   ) {
@@ -69,7 +79,13 @@ const handleSetPerson = () => {
     <div class="item">
       <label for="date" v-if="type == 0">Data de Nascimento</label>
       <label for="date" v-else>Data de Abertura</label>
-      <input type="date" name="date" v-model="date" />
+      <input
+        type="date"
+        name="date"
+        v-model="date"
+        :min="minDate"
+        :max="maxDate"
+      />
     </div>
     <div class="item">
       <label for="phone">Telefone</label>

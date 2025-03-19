@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Vue.js
+/dist
+/.nuxt
+/.idea
+/.vscode
+*.log
+
+# Dependency directories
+**/node_modules/
+
+# Build output
+/dist/
+/build/
+/.eslintcache
+
+# Misc
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Vite
+.vite

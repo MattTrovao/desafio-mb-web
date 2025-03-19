@@ -1,11 +1,12 @@
 :root {
   --black: #000000;
-  --blue: #14213D;
+  --blue: #14213d;
   --orange-200: #ffc362;
-  --orange-400: #FCA311;
+  --orange-400: #fca311;
   --orange-800: #b6760e;
-  --gray: #E5E5E5;
-  --white: #FFFFFF;
+  --red: #9f0606;
+  --gray: #e5e5e5;
+  --white: #ffffff;
 }
 .text-black {
   color: var(--black);
@@ -22,12 +23,17 @@
 .text-orange-400 {
   color: var(--orange-400);
 }
+
 .text-orange-800 {
   color: var(--orange-800);
 }
 
+.text-red {
+  color: var(--red);
+}
+
 .text-gray {
-  color: var(--light-gray);
+  color: var(--gray);
 }
 
 .text-white {

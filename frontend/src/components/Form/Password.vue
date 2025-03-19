@@ -3,7 +3,13 @@ import { ref, computed } from "vue";
 
 const emit = defineEmits(["setPerson", "back"]);
 
-const password = ref("");
+const props = defineProps({
+  data: {
+    type: Object,
+  },
+});
+
+const password = ref(props.data.password ? props.data.password : "");;
 const toggleVision = ref(true);
 
 const disabled = computed(() => {
